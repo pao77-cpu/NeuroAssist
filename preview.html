@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NeuroAssist</title>
+  <style>
+    :root{
+      --bg:#f8fafc;
+      --card:#ffffff;
+      --text:#0f172a;
+      --muted:#475569;
+      --line:#e2e8f0;
+      --accent:#0f172a;
+      --accent-2:#334155;
+      --soft:#f1f5f9;
+      --shadow:0 10px 30px rgba(15,23,42,.08);
+      --radius:24px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+    a{text-decoration:none;color:inherit}
+    .container{max-width:1200px;margin:0 auto;padding:0 24px}
+    .nav{
+      position:sticky;top:0;z-index:20;
+      background:rgba(255,255,255,.92);
+      backdrop-filter: blur(10px);
+      border-bottom:1px solid var(--line);
+    }
+    .nav-inner{
+      display:flex;justify-content:space-between;align-items:center;
+      padding:18px 0;
+    }
+    .brand h1{margin:0;font-size:30px}
+    .brand p{margin:4px 0 0;color:var(--muted);font-size:14px}
+    .nav-links{display:flex;gap:24px;font-weight:600;color:var(--muted)}
+    .hero{
+      padding:72px 0 48px;
+      display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;
+    }
+    .pill{
+      display:inline-block;background:var(--accent);color:#fff;
+      padding:8px 16px;border-radius:999px;font-size:14px;font-weight:700;
+      margin-bottom:16px;
+    }
+    .hero h2{
+      font-size:54px;line-height:1.05;margin:0 0 18px;
+    }
+    .hero p{
+      color:var(--muted);font-size:19px;line-height:1.8;margin:0;
+      max-width:680px;
+    }
+    .hero-buttons{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}
+    .btn{
+      border:none;cursor:pointer;padding:14px 22px;border-radius:18px;
+      font-size:16px;font-weight:700;box-shadow:var(--shadow);
+    }
+    .btn-primary{background:var(--accent);color:#fff}
+    .btn-secondary{background:#fff;border:1px solid var(--line);color:var(--text)}
+    .hero-right{display:grid;gap:16px}
+    .card{
+      background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+    .card.pad{padding:24px}
+    .feature-grid,.future-grid,.cards-grid,.quiz-grid{
+      display:grid;gap:18px;
+    }
+    .feature-grid{grid-template-columns:repeat(3,1fr)}
+    .future-grid{grid-template-columns:repeat(2,1fr)}
+    .cards-grid{grid-template-columns:repeat(3,1fr)}
+    .quiz-grid{grid-template-columns:repeat(3,1fr)}
+    section{padding:20px 0 24px}
+    .section-box{padding:34px}
+    .section-title{font-size:38px;margin:0 0 10px}
+    .section-text{margin:0;color:var(--muted);line-height:1.8}
+    .mini{
+      background:var(--soft);border:1px solid var(--line);border-radius:20px;padding:18px;
+      font-weight:600;color:var(--text);
+    }
+    .flashcard{
+      min-height:260px;perspective:1000px;cursor:pointer;
+    }
+    .flashcard-inner{
+      position:relative;width:100%;height:100%;
+      transition:transform .7s;transform-style:preserve-3d;
+    }
+    .flashcard.flipped .flashcard-inner{transform:rotateY(180deg)}
+    .flashcard-face{
+      position:absolute;inset:0;padding:24px;border-radius:28px;
+      background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);
+      backface-visibility:hidden;
+    }
+    .flashcard-back{transform:rotateY(180deg)}
+    .label{
+      display:flex;justify-content:space-between;align-items:center;
+      font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#94a3b8;
+    }
+    .term{font-size:32px;font-weight:800;margin-top:34px}
+    .divider{height:1px;background:var(--line);margin:24px 0}
+    .definition{color:var(--muted);line-height:1.8;font-size:16px}
+    .small-badge{
+      letter-spacing:normal;text-transform:none;background:var(--soft);
+      color:#64748b;border-radius:999px;padding:6px 12px;font-size:12px;
+    }
+    .quiz-wrap{
+      background:var(--accent);color:#fff;padding:34px;border-radius:34px;box-shadow:var(--shadow);
+    }
+    .quiz-card{
+      background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);
+      border-radius:28px;padding:22px;
+    }
+    .quiz-card h4{margin:10px 0 16px;font-size:22px;line-height:1.5}
+    .option{
+      width:100%;text-align:left;border:none;cursor:pointer;
+      background:rgba(255,255,255,.10);color:#fff;padding:14px 16px;
+      border-radius:16px;margin:10px 0;font-size:15px;
+    }
+    .option:hover{background:rgba(255,255,255,.18)}
+    .result{
+      margin-top:14px;font-size:14px;font-weight:700;
+    }
+    .footer{
+      border-top:1px solid var(--line);background:#fff;margin-top:24px;
+    }
+    .footer-inner{
+      display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+      padding:24px 0;color:var(--muted);font-size:14px;
+    }
+    .muted{color:var(--muted)}
+    .subtle{font-size:14px;color:#cbd5e1}
+    @media (max-width: 980px){
+      .hero,.feature-grid,.future-grid,.cards-grid,.quiz-grid{grid-template-columns:1fr}
+      .hero h2{font-size:40px}
+      .nav-links{display:none}
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <div class="brand">
+        <h1>NeuroAssist</h1>
+        <p>Quizlet-style neuroscience learning website</p>
+      </div>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#flashcards">Flashcards</a>
+        <a href="#quiz">Quiz</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <section class="hero">
+      <div>
+        <span class="pill">AI + Brain Project</span>
+        <h2>Learn neuroscience in a simpler, smarter way.</h2>
+        <p>
+          NeuroAssist is a Quizlet-style study website that helps students review neuroscience topics
+          through flashcards, quizzes, and clear explanations. It is designed to make difficult brain
+          concepts easier, faster, and more fun to study.
+        </p>
+        <div class="hero-buttons">
+          <a class="btn btn-primary" href="#flashcards">Start Studying</a>
+          <a class="btn btn-secondary" href="#quiz">Take Quiz</a>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="card pad">
+          <div class="muted" style="font-weight:700;font-size:14px;">Featured Study Set</div>
+          <h3 style="font-size:32px;margin:10px 0 0;">Neurons and Synapses</h3>
+          <p class="section-text" style="margin-top:12px;">6 flashcards • 3 quiz questions • beginner friendly</p>
+        </div>
+        <div class="feature-grid" style="grid-template-columns:repeat(2,1fr)">
+          <div class="card pad">
+            <div class="muted" style="font-size:14px;">Mode</div>
+            <h4 style="margin:8px 0 0;font-size:24px;">Flashcards</h4>
+            <p class="section-text" style="margin-top:10px;">Review important definitions quickly and clearly.</p>
+          </div>
+          <div class="card pad">
+            <div class="muted" style="font-size:14px;">Mode</div>
+            <h4 style="margin:8px 0 0;font-size:24px;">Quiz Practice</h4>
+            <p class="section-text" style="margin-top:10px;">Test your understanding with exam-style questions.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="card section-box">
+        <h3 class="section-title">Why NeuroAssist?</h3>
+        <p class="section-text">This website turns difficult neuroscience concepts into study tools that are easier to understand and more interactive for students.</p>
+        <div class="feature-grid" style="margin-top:24px;">
+          <div class="mini">Flashcards for fast studying</div>
+          <div class="mini">Practice quizzes with instant feedback</div>
+          <div class="mini">Simple explanations for hard neuroscience topics</div>
+          <div class="mini">Student-friendly design inspired by Quizlet</div>
+          <div class="mini">Quick review sets for exams</div>
+          <div class="mini">Organized learning by topic</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="flashcards">
+      <div style="margin-bottom:18px;">
+        <h3 class="section-title" style="margin-bottom:4px;">Flashcards</h3>
+        <p class="section-text">Click any card to flip it.</p>
+      </div>
+      <div class="cards-grid">
+        <div class="flashcard" onclick="flipCard(this)">
+          <div class="flashcard-inner">
+            <div class="flashcard-face">
+              <div class="label"><span>Term</span><span class="small-badge">Study Set</span></div>
+              <div class="term">Neuron</div>
+              <div class="divider"></div>
+              <div class="definition">Click to reveal definition</div>
+            </div>
+            <div class="flashcard-face flashcard-back">
+              <div class="label"><span>Definition</span><span class="small-badge">Study Set</span></div>
+              <div class="term" style="font-size:26px;">Neuron</div>
+              <div class="divider"></div>
+              <div class="definition">A nerve cell that receives, processes, and sends information through electrical and chemical signals.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flashcard" onclick="flipCard(this)">
+          <div class="flashcard-inner">
+            <div class="flashcard-face">
+              <div class="label"><span>Term</span><span class="small-badge">Study Set</span></div>
+              <div class="term">Action Potential</div>
+              <div class="divider"></div>
+              <div class="definition">Click to reveal definition</div>
+            </div>
+            <div class="flashcard-face flashcard-back">
+              <div class="label"><span>Definition</span><span class="small-badge">Study Set</span></div>
+              <div class="term" style="font-size:26px;">Action Potential</div>
+              <div class="divider"></div>
+              <div class="definition">A rapid electrical signal that travels down the axon of a neuron when threshold is reached.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flashcard" onclick="flipCard(this)">
+          <div class="flashcard-inner">
+            <div class="flashcard-face">
+              <div class="label"><span>Term</span><span class="small-badge">Study Set</span></div>
+              <div class="term">Synapse</div>
+              <div class="divider"></div>
+              <div class="definition">Click to reveal definition</div>
+            </div>
+            <div class="flashcard-face flashcard-back">
+              <div class="label"><span>Definition</span><span class="small-badge">Study Set</span></div>
+              <div class="term" style="font-size:26px;">Synapse</div>
+              <div class="divider"></div>
+              <div class="definition">The small gap between two neurons where neurotransmitters carry signals from one cell to another.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flashcard" onclick="flipCard(this)">
+          <div class="flashcard-inner">
+            <div class="flashcard-face">
+              <div class="label"><span>Term</span><span class="small-badge">Study Set</span></div>
+              <div class="term">Neurotransmitter</div>
+              <div class="divider"></div>
+              <div class="definition">Click to reveal definition</div>
+            </div>
+            <div class="flashcard-face flashcard-back">
+              <div class="label"><span>Definition</span><span class="small-badge">Study Set</span></div>
+              <div class="term" style="font-size:24px;">Neurotransmitter</div>
+              <div class="divider"></div>
+              <div class="definition">A chemical messenger released by neurons to send signals across a synapse.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flashcard" onclick="flipCard(this)">
+          <div class="flashcard-inner">
+            <div class="flashcard-face">
+              <div class="label"><span>Term</span><span class="small-badge">Study Set</span></div>
+              <div class="term">Myelin Sheath</div>
+              <div class="divider"></div>
+              <div class="definition">Click to reveal definition</div>
+            </div>
+            <div class="flashcard-face flashcard-back">
+              <div class="label"><span>Definition</span><span class="small-badge">Study Set</span></div>
+              <div class="term" style="font-size:24px;">Myelin Sheath</div>
+              <div class="divider"></div>
+              <div class="definition">A fatty insulating layer around some axons that helps speed up nerve signal transmission.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flashcard" onclick="flipCard(this)">
+          <div class="flashcard-inner">
+            <div class="flashcard-face">
+              <div class="label"><span>Term</span><span class="small-badge">Study Set</span></div>
+              <div class="term">Hippocampus</div>
+              <div class="divider"></div>
+              <div class="definition">Click to reveal definition</div>
+            </div>
+            <div class="flashcard-face flashcard-back">
+              <div class="label"><span>Definition</span><span class="small-badge">Study Set</span></div>
+              <div class="term" style="font-size:26px;">Hippocampus</div>
+              <div class="divider"></div>
+              <div class="definition">A brain structure mainly involved in learning and memory formation.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="quiz">
+      <div class="quiz-wrap">
+        <h3 class="section-title" style="color:#fff;margin-bottom:6px;">Quick Quiz</h3>
+        <p class="subtle">Choose an answer and get instant feedback.</p>
+        <div class="quiz-grid" style="margin-top:24px;">
+          <div class="quiz-card">
+            <div class="subtle">Question 1</div>
+            <h4>What is the main function of a neurotransmitter?</h4>
+            <button class="option" onclick="checkAnswer(this, false)">A. To insulate the neuron</button>
+            <button class="option" onclick="checkAnswer(this, true)">B. To send chemical signals across the synapse</button>
+            <button class="option" onclick="checkAnswer(this, false)">C. To produce oxygen</button>
+            <button class="option" onclick="checkAnswer(this, false)">D. To stop brain activity</button>
+            <div class="result"></div>
+          </div>
+
+          <div class="quiz-card">
+            <div class="subtle">Question 2</div>
+            <h4>Which structure is most closely related to memory formation?</h4>
+            <button class="option" onclick="checkAnswer(this, false)">A. Cerebellum</button>
+            <button class="option" onclick="checkAnswer(this, true)">B. Hippocampus</button>
+            <button class="option" onclick="checkAnswer(this, false)">C. Spinal cord</button>
+            <button class="option" onclick="checkAnswer(this, false)">D. Retina</button>
+            <div class="result"></div>
+          </div>
+
+          <div class="quiz-card">
+            <div class="subtle">Question 3</div>
+            <h4>An action potential travels along the:</h4>
+            <button class="option" onclick="checkAnswer(this, false)">A. Dendrite only</button>
+            <button class="option" onclick="checkAnswer(this, false)">B. Synaptic cleft</button>
+            <button class="option" onclick="checkAnswer(this, true)">C. Axon</button>
+            <button class="option" onclick="checkAnswer(this, false)">D. Nucleus</button>
+            <div class="result"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="card section-box">
+        <h3 class="section-title">Future AI Features</h3>
+        <div class="future-grid" style="margin-top:24px;">
+          <div class="mini" style="padding:24px;">
+            <div style="font-size:24px;font-weight:800;margin-bottom:12px;">Personalized Study Plans</div>
+            <div class="section-text">The website can later track weak topics and recommend flashcards, quizzes, and summaries based on user performance.</div>
+          </div>
+          <div class="mini" style="padding:24px;">
+            <div style="font-size:24px;font-weight:800;margin-bottom:12px;">AI Explanations</div>
+            <div class="section-text">A future version can explain neuroscience ideas in simpler words, using analogies and step-by-step help for students.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>NeuroAssist • Built for neuroscience students</div>
+      <div>Inspired by Quizlet-style studying and your AI & Brain project idea</div>
+    </div>
+  </footer>
+
+  <script>
+    function flipCard(card){
+      card.classList.toggle('flipped');
+    }
+
+    function checkAnswer(button, isCorrect){
+      const card = button.closest('.quiz-card');
+      const result = card.querySelector('.result');
+      const options = card.querySelectorAll('.option');
+
+      options.forEach(opt => {
+        opt.style.opacity = '0.8';
+        opt.disabled = true;
+      });
+
+      if(isCorrect){
+        button.style.outline = '2px solid rgba(255,255,255,.95)';
+        result.textContent = 'Correct!';
+      } else {
+        button.style.outline = '2px solid rgba(255,120,120,.9)';
+        result.textContent = 'Not quite. Try reviewing the flashcards above.';
+      }
+    }
+  </script>
+</body>
+</html>
