@@ -1,58 +1,46 @@
 export default function NeuroAssistSite() {
   const flashcards = [
-    {
-      term: "Neuron",
-      definition:
-        "A nerve cell that receives, processes, and sends information through electrical and chemical signals.",
-    },
-    {
-      term: "Action Potential",
-      definition:
-        "A rapid electrical signal that travels down the axon of a neuron when the threshold is reached.",
-    },
-    {
-      term: "Synapse",
-      definition:
-        "The small gap between two neurons where neurotransmitters carry signals from one cell to another.",
-    },
-    {
-      term: "Neurotransmitter",
-      definition:
-        "A chemical messenger released by neurons to send signals across a synapse.",
-    },
-    {
-      term: "Myelin Sheath",
-      definition:
-        "A fatty insulating layer around some axons that helps speed up nerve signal transmission.",
-    },
-    {
-      term: "Hippocampus",
-      definition:
-        "A brain structure mainly involved in learning and memory formation.",
-    },
+    { term: "Neuron", definition: "A nerve cell that receives, processes, and sends information through electrical and chemical signals." },
+    { term: "Action Potential", definition: "A rapid electrical signal that travels down the axon of a neuron when the threshold is reached." },
+    { term: "Synapse", definition: "The small gap between two neurons where neurotransmitters carry signals from one cell to another." },
+    { term: "Neurotransmitter", definition: "A chemical messenger released by neurons to send signals across a synapse." },
+    { term: "Myelin Sheath", definition: "A fatty insulating layer around some axons that helps speed up nerve signal transmission." },
+    { term: "Hippocampus", definition: "A brain structure mainly involved in learning and memory formation." },
+
+    // NEW TERMS (15)
+    { term: "Dendrite", definition: "Branch-like structures that receive signals from other neurons." },
+    { term: "Axon", definition: "A long projection that carries electrical signals away from the neuron." },
+    { term: "Resting Potential", definition: "The electrical charge of a neuron when it is not firing." },
+    { term: "Depolarization", definition: "A decrease in membrane potential making the inside more positive." },
+    { term: "Repolarization", definition: "Return of membrane potential back to resting state." },
+    { term: "Threshold", definition: "The level of stimulation needed to trigger an action potential." },
+    { term: "Cerebellum", definition: "Brain region responsible for balance and coordination." },
+    { term: "Amygdala", definition: "Brain structure involved in emotions, especially fear." },
+    { term: "Frontal Lobe", definition: "Responsible for decision making, reasoning, and personality." },
+    { term: "Occipital Lobe", definition: "Processes visual information." },
+    { term: "Temporal Lobe", definition: "Involved in hearing and memory." },
+    { term: "Parietal Lobe", definition: "Processes sensory information like touch and pressure." },
+    { term: "Glial Cells", definition: "Support cells that protect and nourish neurons." },
+    { term: "Synaptic Vesicles", definition: "Small sacs that store neurotransmitters." },
+    { term: "Reuptake", definition: "Process where neurotransmitters are reabsorbed by the sending neuron." }
   ];
 
   const quizQuestions = [
-    {
-      question: "What is the main function of a neurotransmitter?",
-      options: [
-        "To insulate the neuron",
-        "To send chemical signals across the synapse",
-        "To produce oxygen",
-        "To stop brain activity",
-      ],
-      answer: 1,
-    },
-    {
-      question: "Which structure is most closely related to memory formation?",
-      options: ["Cerebellum", "Hippocampus", "Spinal cord", "Retina"],
-      answer: 1,
-    },
-    {
-      question: "An action potential travels along the:",
-      options: ["Dendrite only", "Synaptic cleft", "Axon", "Nucleus"],
-      answer: 2,
-    },
+    { question: "What is the main function of a neurotransmitter?", options: ["To insulate the neuron","To send chemical signals across the synapse","To produce oxygen","To stop brain activity"], answer: 1 },
+    { question: "Which structure is most closely related to memory formation?", options: ["Cerebellum","Hippocampus","Spinal cord","Retina"], answer: 1 },
+    { question: "An action potential travels along the:", options: ["Dendrite only","Synaptic cleft","Axon","Nucleus"], answer: 2 },
+
+    // NEW QUESTIONS (10)
+    { question: "What part of the neuron receives incoming signals?", options: ["Axon","Dendrite","Nucleus","Synapse"], answer: 1 },
+    { question: "What happens during depolarization?", options: ["Neuron becomes more negative","Neuron becomes more positive","Neuron stops working","Neuron dies"], answer: 1 },
+    { question: "Which lobe is responsible for vision?", options: ["Frontal","Temporal","Occipital","Parietal"], answer: 2 },
+    { question: "What is the role of myelin sheath?", options: ["Slow signals","Speed up signals","Store memory","Control breathing"], answer: 1 },
+    { question: "Which brain part controls emotions like fear?", options: ["Cerebellum","Amygdala","Hippocampus","Brainstem"], answer: 1 },
+    { question: "What is the resting potential?", options: ["Neuron firing","Neuron at rest","Neuron dying","Neuron growing"], answer: 1 },
+    { question: "What carries signals away from the neuron?", options: ["Dendrite","Axon","Synapse","Receptor"], answer: 1 },
+    { question: "What stores neurotransmitters?", options: ["Axon","Vesicles","Nucleus","Dendrites"], answer: 1 },
+    { question: "Which lobe handles decision making?", options: ["Frontal","Occipital","Temporal","Parietal"], answer: 0 },
+    { question: "What is reuptake?", options: ["Destroying neurotransmitters","Reabsorbing neurotransmitters","Creating neurons","Sending signals"], answer: 1 }
   ];
 
   const features = [
